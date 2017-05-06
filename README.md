@@ -1,4 +1,6 @@
 # NHN Next 2017년 C++ Advance 과정 유닛테스트 수업 실습 프로젝트
+## 131004 고금성
+## 5.1 ~ 5.10
 
 CumBuffer 라는 오픈 소스를 분석 후 유닛테스트를 만든다.
 - 원본: https://github.com/jeremyko/CumBuffer
