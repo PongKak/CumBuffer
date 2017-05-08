@@ -44,5 +44,27 @@ namespace VSUnitTest
 			Assert::AreEqual(buffering.GetCurTailPos(), (uint64_t)6);
 		}
 
+		TEST_METHOD(AppendBigData)
+		{
+			char data[1024] = { 0, };
+			char dataOut[100] = { 0, };
+
+			CumBuffer buffering;
+			Assert::IsTrue(OP_RESULT::OP_RSLT_OK == buffering.Init()); //default buffer length
+			Assert::AreEqual(buffering.GetCurHeadPos(), UINT64_ZERO);
+			Assert::AreEqual(buffering.GetCurTailPos(), UINT64_ZERO);
+			Assert::IsTrue(OP_RESULT::OP_RSLT_NO_DATA == buffering.GetData(1024, dataOut));
+
+			memset(data, 0x00, sizeof(data));
+			Assert::IsTrue(OP_RESULT::OP_RSLT_OK == buffering.Append(1024, data));
+			Assert::AreEqual(buffering.GetCurTailPos(), (uint64_t)1024);
+			Assert::AreEqual(buffering.GetCurHeadPos(), (uint64_t)0);
+
+			Assert::IsTrue(OP_RESULT::OP_RSLT_OK == buffering.Append(1024, data));
+			Assert::AreEqual(buffering.GetCurTailPos(), (uint64_t)2048);
+			Assert::AreEqual(buffering.GetCurHeadPos(), (uint64_t)0);
+
+		}
+
 	};
 }
